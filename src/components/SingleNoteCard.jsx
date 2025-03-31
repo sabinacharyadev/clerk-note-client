@@ -12,7 +12,7 @@ const SingleNoteCard = ({ noteData }) => {
         <Card.Text>{note}</Card.Text>
       </Card.Body>
       <Card.Footer>
-        <Card.Text>{format(new Date(updatedAt), "MM/dd/yyyy")}</Card.Text>
+        <Card.Text>{format(new Date(updatedAt), "MMM dd, yyyy")}</Card.Text>
       </Card.Footer>
     </Card>
   );

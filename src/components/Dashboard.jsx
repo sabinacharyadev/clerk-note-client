@@ -120,7 +120,7 @@ const Dashboard = () => {
           lg={1}
           className="border shadow d-flex flex-column align-items-center"
         >
-          <p className="fw-bold mt-4" style={{ marginBottom: "5rem" }}>
+          <p className="fw-bold mt-4" style={{ marginBottom: "3rem" }}>
             Notify
           </p>
           <Button
