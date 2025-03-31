@@ -1,22 +1,18 @@
-import { useAuth, UserButton, useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Button,
-  Container,
-  Form,
-  Navbar,
-  Row,
-  Col,
-  Stack,
-  Table,
-} from "react-bootstrap";
+import { Button, Row, Col, Stack } from "react-bootstrap";
 import SingleNoteCard from "./SingleNoteCard";
 import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
 import NewNoteModal from "./NewNoteModal";
 
 const Dashboard = () => {
+  const BASE_LOCAL_URL = import.meta.env.VITE_BASE_API_URL_LOCAL;
+  const BASE_PROD_URL = import.meta.env.VITE_BASE_API_URL_PROD;
+
+  const API_BASE_URL = import.meta.env.PROD ? BASE_PROD_URL : BASE_LOCAL_URL;
+
   const { user } = useUser();
   const { getToken } = useAuth();
 
@@ -42,7 +38,7 @@ const Dashboard = () => {
 
     await axios
       .post(
-        "http://localhost:3000/note",
+        `${API_BASE_URL}/note`,
         {
           userId: mongoUserId,
           note: note,
@@ -63,7 +59,7 @@ const Dashboard = () => {
     const token = await getToken();
     const response = await axios
       .post(
-        "http://localhost:3000/saveUser",
+        `${API_BASE_URL}/saveUser`,
         {
           userId: user.id,
           email: user.primaryEmailAddress.emailAddress,
@@ -90,7 +86,7 @@ const Dashboard = () => {
 
     const response = await axios
       .get(
-        "http://localhost:3000/note",
+        `${API_BASE_URL}/note`,
 
         {
           headers: {
