@@ -5,7 +5,9 @@ const NavBar = () => {
   return (
     <Navbar className="bg-body-tertiary position-fixed vw-100">
       <Container>
-        <Navbar.Brand href="#home">Notify</Navbar.Brand>
+        <Navbar.Brand className="fw-bold" href="#home">
+          Notify
+        </Navbar.Brand>
 
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
