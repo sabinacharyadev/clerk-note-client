@@ -24,11 +24,7 @@ const NewNoteForm = ({
           Close
         </Button>
 
-        <Button
-          variant="primary"
-          type="submit"
-          onClick={handleNewNoteModalClose}
-        >
+        <Button variant="primary" type="submit">
           Submit
         </Button>
       </Stack>

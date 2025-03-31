@@ -56,7 +56,7 @@ const Dashboard = () => {
       .then((res) => res.data)
       .catch((error) => console.log(error));
     getNotes();
-    setForm("");
+    handleNewNoteModalClose();
   };
 
   const saveUser = async () => {
@@ -120,7 +120,7 @@ const Dashboard = () => {
           lg={1}
           className="border shadow d-flex flex-column align-items-center"
         >
-          <p className="fw-bold" style={{ marginBottom: "5rem" }}>
+          <p className="fw-bold mt-4" style={{ marginBottom: "5rem" }}>
             Notify
           </p>
           <Button
@@ -130,9 +130,22 @@ const Dashboard = () => {
             <IoAddCircleSharp size="2.5em" />
           </Button>
         </Col>
+
         {/* User HomePage */}
-        <Col xs={10} lg={11}>
+        <Col xs={10} lg={11} className="px-0">
           <UserNavBar />
+          <h2 className="p-4 my-4">Notes</h2>
+          <Stack
+            gap={4}
+            direction="horizontal"
+            style={{ height: "75vh" }}
+            className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
+          >
+            {notes.map((note) => (
+              <SingleNoteCard key={note._id} noteData={note} />
+            ))}
+          </Stack>
+
           <NewNoteModal
             showNewNoteModal={showNewNoteModal}
             handleNewNoteModalClose={handleNewNoteModalClose}
@@ -141,16 +154,6 @@ const Dashboard = () => {
             setForm={setForm}
             handleOnChange={handleOnChange}
           />
-          <h1>Notes</h1>
-          <Stack
-            gap={4}
-            direction="horizontal"
-            className="d-flex flex-wrap p-3"
-          >
-            {notes.map((note) => (
-              <SingleNoteCard key={note._id} noteData={note} />
-            ))}
-          </Stack>
         </Col>
       </Row>
     </>
