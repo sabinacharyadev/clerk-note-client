@@ -14,14 +14,14 @@ function App() {
     <>
       <SignedOut>
         <NavBarSignOut />
-        <Container>
+        <div className="bg-body-tertiary vw-100">
           <Row className="vh-100">
             <Stack className="d-flex justify-content-center align-items-center">
               <h1 className="display-1">What will you</h1>
               <h1 className="display-1">
                 <span className="text-primary">note</span> today ?
               </h1>
-              <h3 className="my-4">
+              <h3 className="my-4 display-6 ">
                 Capture Ideas. Organize Effortlessly. Remember Everything!
               </h3>
 
@@ -39,7 +39,7 @@ function App() {
               </p>
             </Stack>
           </Row>
-        </Container>
+        </div>
       </SignedOut>
 
       <SignedIn>
