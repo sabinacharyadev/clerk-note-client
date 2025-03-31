@@ -113,7 +113,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Row className="vh-100">
+      <Row className="vh-100" style={{ fontFamily: "Comfortaa" }}>
         {/* Side Panel */}
         <Col
           xs={2}
