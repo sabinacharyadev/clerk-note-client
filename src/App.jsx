@@ -13,10 +13,9 @@ function App() {
   return (
     <>
       <SignedOut>
+        <NavBarSignOut />
         <Container>
-          <NavBarSignOut />
-
-          <Row className="vh-100 ">
+          <Row className="vh-100">
             <Stack className="d-flex justify-content-center align-items-center">
               <h1>What will you</h1>
               <h1>
