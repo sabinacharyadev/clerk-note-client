@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Container, Form, Navbar, Stack, Table } from "react-bootstrap";
 import SingleNoteCard from "./SingleNoteCard";
+import UserNavBar from "./UserNavBar";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -95,20 +96,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">Notes</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text className="d-flex justify-content-center align-items-center">
-              <span className="mx-3">
-                {user.firstName && <span>Hello, {user.firstName}</span>}
-              </span>
-              <UserButton />
-            </Navbar.Text>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <UserNavBar />
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Note</Form.Label>

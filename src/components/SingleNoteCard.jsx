@@ -3,8 +3,6 @@ import { format } from "date-fns";
 
 const SingleNoteCard = ({ noteData }) => {
   const { note, updatedAt = "", backgroundColor } = noteData;
-  console.log(noteData);
-
   return (
     <Card
       className={backgroundColor}
