@@ -1,9 +1,19 @@
 import { useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Container, Form, Navbar, Stack, Table } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  Navbar,
+  Row,
+  Col,
+  Stack,
+  Table,
+} from "react-bootstrap";
 import SingleNoteCard from "./SingleNoteCard";
 import UserNavBar from "./UserNavBar";
+import { IoAddCircleSharp } from "react-icons/io5";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -96,29 +106,49 @@ const Dashboard = () => {
 
   return (
     <>
-      <UserNavBar />
-      <Form onSubmit={handleOnSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Note</Form.Label>
-          <Form.Control
-            type="text"
-            name="note"
-            value={note}
-            onChange={handleOnChange}
-            placeholder="Enter note"
-          />
-        </Form.Group>
+      <Row className="vh-100">
+        <Col
+          xs={2}
+          lg={1}
+          className="border shadow d-flex flex-column align-items-center"
+        >
+          <p className="fw-bold" style={{ marginBottom: "5rem" }}>
+            Notify
+          </p>
+          <Button variant="bg-transparent">
+            <IoAddCircleSharp size="2.5em" />
+          </Button>
+        </Col>
+        <Col xs={10} lg={11}>
+          <UserNavBar />
+          <Form onSubmit={handleOnSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Note</Form.Label>
+              <Form.Control
+                type="text"
+                name="note"
+                value={note}
+                onChange={handleOnChange}
+                placeholder="Enter note"
+              />
+            </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-      <h1>Notes</h1>
-      <Stack gap={4} direction="horizontal" className="d-flex flex-wrap p-3">
-        {notes.map((note) => (
-          <SingleNoteCard key={note._id} noteData={note} />
-        ))}
-      </Stack>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+          <h1>Notes</h1>
+          <Stack
+            gap={4}
+            direction="horizontal"
+            className="d-flex flex-wrap p-3"
+          >
+            {notes.map((note) => (
+              <SingleNoteCard key={note._id} noteData={note} />
+            ))}
+          </Stack>
+        </Col>
+      </Row>
     </>
   );
 };

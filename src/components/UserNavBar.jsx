@@ -4,9 +4,9 @@ import { Container, Navbar } from "react-bootstrap";
 const UserNavBar = () => {
   const { user } = useUser();
   return (
-    <Navbar className="bg-body-tertiary">
+    <Navbar className="bg-body-tertiary ">
       <Container>
-        <Navbar.Brand href="#home">Notes</Navbar.Brand>
+        <Navbar.Brand href="#home">Notify</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="d-flex justify-content-center align-items-center">
