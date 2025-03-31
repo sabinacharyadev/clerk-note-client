@@ -5,29 +5,35 @@ import {
   SignUpButton,
   SignInButton,
 } from "@clerk/clerk-react";
-import Dashboard from "./Dashboard";
-import { Button, Container, Row, Stack } from "react-bootstrap";
+import Dashboard from "./components/Dashboard";
+import { Button, Container, Navbar, Row, Stack } from "react-bootstrap";
+import NavBarSignOut from "./components/NavBarSignOut";
 
 function App() {
   return (
     <>
       <SignedOut>
         <Container>
+          <NavBarSignOut />
+
           <Row className="vh-100 ">
             <Stack className="d-flex justify-content-center align-items-center">
-              <h1>Note</h1>
-              <p>Note Taking made easy and simple</p>
-              <p>Not registered with us? </p>
+              <h1>What will you</h1>
+              <h1>
+                <span className="text-primary">note</span> today?
+              </h1>
+              <p>Capture Ideas. Organize Effortlessly. Remember Everything!</p>
 
               <SignUpButton>
-                <Button variant="link">Sign up</Button>
+                <Button variant="primary">Start Notify today</Button>
               </SignUpButton>
 
-              <p>Login to see your notes</p>
-
-              <SignInButton>
-                <Button variant="link">Login</Button>
-              </SignInButton>
+              <p className="d-flex align-items-center">
+                Already have an account?
+                <SignInButton>
+                  <Button variant="link">Login</Button>
+                </SignInButton>
+              </p>
             </Stack>
           </Row>
         </Container>
