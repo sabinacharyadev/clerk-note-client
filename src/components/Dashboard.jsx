@@ -1,7 +1,8 @@
 import { useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Container, Form, Navbar, Table } from "react-bootstrap";
+import { Button, Container, Form, Navbar, Stack, Table } from "react-bootstrap";
+import SingleNoteCard from "./SingleNoteCard";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -125,22 +126,11 @@ const Dashboard = () => {
         </Button>
       </Form>
       <h1>Notes</h1>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          {notes.map((note, index) => (
-            <tr key={note._id}>
-              <td>{index + 1}</td>
-              <td>{note.note}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Stack gap={4} direction="horizontal" className="d-flex flex-wrap p-3">
+        {notes.map((note) => (
+          <SingleNoteCard key={note._id} noteData={note} />
+        ))}
+      </Stack>
     </>
   );
 };
