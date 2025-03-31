@@ -1,7 +1,7 @@
 import { SignInButton, SignUpButton } from "@clerk/clerk-react";
 import { Button, Container, Navbar } from "react-bootstrap";
 
-const NavBarSignOut = () => {
+const NavBar = () => {
   return (
     <Navbar className="bg-body-tertiary position-fixed vw-100">
       <Container>
@@ -31,4 +31,4 @@ const NavBarSignOut = () => {
   );
 };
 
-export default NavBarSignOut;
+export default NavBar;

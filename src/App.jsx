@@ -6,14 +6,14 @@ import {
   SignInButton,
 } from "@clerk/clerk-react";
 import Dashboard from "./components/Dashboard";
-import { Button, Container, Navbar, Row, Stack } from "react-bootstrap";
-import NavBarSignOut from "./components/NavBarSignOut";
+import { Button, Row, Stack } from "react-bootstrap";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <>
       <SignedOut>
-        <NavBarSignOut />
+        <NavBar />
         <div className="bg-body-tertiary vw-100">
           <Row className="vh-100">
             <Stack className="d-flex justify-content-center align-items-center">
