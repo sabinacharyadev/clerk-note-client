@@ -11,7 +11,12 @@ const NavBarSignOut = () => {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             <SignInButton>
-              <Button variant="link">Log in</Button>
+              <Button
+                className="text-decoration-none text-black"
+                variant="link"
+              >
+                Log in
+              </Button>
             </SignInButton>
           </Navbar.Text>
 

@@ -17,14 +17,18 @@ function App() {
         <Container>
           <Row className="vh-100">
             <Stack className="d-flex justify-content-center align-items-center">
-              <h1>What will you</h1>
-              <h1>
-                <span className="text-primary">note</span> today?
+              <h1 className="display-1">What will you</h1>
+              <h1 className="display-1">
+                <span className="text-primary">note</span> today ?
               </h1>
-              <p>Capture Ideas. Organize Effortlessly. Remember Everything!</p>
+              <h3 className="my-4">
+                Capture Ideas. Organize Effortlessly. Remember Everything!
+              </h3>
 
-              <SignUpButton>
-                <Button variant="primary">Start Notify today</Button>
+              <SignUpButton className="my-4">
+                <Button size="lg" variant="primary">
+                  Start Notify today
+                </Button>
               </SignUpButton>
 
               <p className="d-flex align-items-center">
