@@ -14,6 +14,7 @@ import {
 import SingleNoteCard from "./SingleNoteCard";
 import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
+import NewNoteModal from "./NewNoteModal";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -21,6 +22,11 @@ const Dashboard = () => {
 
   const [mongoUserId, setMongoUserId] = useState("");
   const [notes, setNotes] = useState([]);
+  const [showNewNoteModal, setShowNewNoteModal] = useState(false);
+  const handleNewNoteModalClose = () => {
+    setShowNewNoteModal(false);
+    setForm("");
+  };
 
   const [form, setForm] = useState({ note: "" });
   const { note } = form;
@@ -50,6 +56,7 @@ const Dashboard = () => {
       .then((res) => res.data)
       .catch((error) => console.log(error));
     getNotes();
+    setForm("");
   };
 
   const saveUser = async () => {
@@ -107,6 +114,7 @@ const Dashboard = () => {
   return (
     <>
       <Row className="vh-100">
+        {/* Side Panel */}
         <Col
           xs={2}
           lg={1}
@@ -115,28 +123,24 @@ const Dashboard = () => {
           <p className="fw-bold" style={{ marginBottom: "5rem" }}>
             Notify
           </p>
-          <Button variant="bg-transparent">
+          <Button
+            variant="bg-transparent"
+            onClick={() => setShowNewNoteModal(true)}
+          >
             <IoAddCircleSharp size="2.5em" />
           </Button>
         </Col>
+        {/* User HomePage */}
         <Col xs={10} lg={11}>
           <UserNavBar />
-          <Form onSubmit={handleOnSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Note</Form.Label>
-              <Form.Control
-                type="text"
-                name="note"
-                value={note}
-                onChange={handleOnChange}
-                placeholder="Enter note"
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+          <NewNoteModal
+            showNewNoteModal={showNewNoteModal}
+            handleNewNoteModalClose={handleNewNoteModalClose}
+            handleOnSubmit={handleOnSubmit}
+            note={note}
+            setForm={setForm}
+            handleOnChange={handleOnChange}
+          />
           <h1>Notes</h1>
           <Stack
             gap={4}
