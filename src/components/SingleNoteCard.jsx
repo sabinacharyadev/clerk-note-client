@@ -1,10 +1,20 @@
-import { Card, Stack } from "react-bootstrap";
+import { Button, Card, Stack } from "react-bootstrap";
 import { format } from "date-fns";
 import { AiOutlineEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
+import { useState } from "react";
 
 const SingleNoteCard = ({ noteData }) => {
   const { note, updatedAt = "", backgroundColor } = noteData;
+  const [isEditMode, setIsEditMode] = useState(false);
+  console.log(noteData);
+
+  const handleOnEditClick = () => {
+    setIsEditMode(true);
+  };
+  const handleOnUpdateClick = () => {
+    setIsEditMode(false);
+  };
   return (
     <Card
       className={backgroundColor}
@@ -22,8 +32,30 @@ const SingleNoteCard = ({ noteData }) => {
             {format(new Date(updatedAt), "MMM dd, yyyy")}
           </Card.Text>
           <Stack direction="horizontal">
-            <AiOutlineEdit size="1.5em" />
-            <TiTick size="2em" />
+            {!isEditMode && (
+              <Button
+                onClick={handleOnEditClick}
+                variant={
+                  backgroundColor === "bg-white text-black"
+                    ? "outline-dark"
+                    : "outline-light"
+                }
+              >
+                <AiOutlineEdit size="1.5em" />
+              </Button>
+            )}
+            {isEditMode && (
+              <Button
+                onClick={handleOnUpdateClick}
+                variant={
+                  backgroundColor === "bg-white text-black"
+                    ? "outline-dark"
+                    : "outline-light"
+                }
+              >
+                <TiTick size="1.5em" />
+              </Button>
+            )}
           </Stack>
         </Stack>
       </Card.Footer>
