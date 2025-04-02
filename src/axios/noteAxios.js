@@ -55,7 +55,6 @@ export const createNote = async (getToken, mongoUserId, note) => {
 // UPDATE NOTE
 export const updateNote = async (getToken, note) => {
   const token = await getToken();
-  console.log(note);
 
   return await axios
     .patch(
@@ -69,6 +68,21 @@ export const updateNote = async (getToken, note) => {
         },
       }
     )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+};
+
+// DELETE NOTES
+export const deleteNotes = async (getToken, selectedIds) => {
+  const token = await getToken();
+
+  return await axios
+    .delete(`${API_BASE_URL}/note`, {
+      data: selectedIds,
+      headers: {
+        Authorization: token,
+      },
+    })
     .then((res) => res.data)
     .catch((error) => console.log(error));
 };

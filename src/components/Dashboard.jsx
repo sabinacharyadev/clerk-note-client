@@ -6,7 +6,7 @@ import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
 import NewNoteModal from "./NewNoteModal";
 import { saveUser } from "../axios/userAxios";
-import { createNote, getNotes } from "../axios/noteAxios";
+import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -47,6 +47,11 @@ const Dashboard = () => {
     }
   };
 
+  const handleOnDeleteClick = async () => {
+    const response = await deleteNotes(getToken, selectedIds);
+    console.log(response);
+  };
+
   saveUser(getToken, user, setMongoUserId);
   getNotes(getToken, mongoUserId, setNotes);
 
@@ -84,7 +89,11 @@ const Dashboard = () => {
           >
             <h2 className="p-4 my-4">Notes</h2>
             {!!selectedIds.length && (
-              <button type="button" class="btn btn-outline-dark">
+              <button
+                type="button"
+                onClick={handleOnDeleteClick}
+                class="btn btn-outline-dark"
+              >
                 Delete Selected{" "}
                 <span class="badge text-bg-danger">{selectedIds.length}</span>
               </button>
