@@ -59,6 +59,7 @@ const Dashboard = () => {
   };
 
   const getSavedNotes = async () => {
+    const dbUserId = localStorage.getItem("userSession");
     const { data } = await getNotes(getToken, dbUserId);
 
     const sortedArrayByDate = data.sort((a, b) =>
@@ -69,9 +70,6 @@ const Dashboard = () => {
 
   const saveUserID = async () => {
     const { data } = await saveUser(getToken, user);
-    if (dbUserId) {
-      localStorage.setItem("userSession", null);
-    }
     localStorage.setItem("userSession", data._id);
     getSavedNotes();
   };
