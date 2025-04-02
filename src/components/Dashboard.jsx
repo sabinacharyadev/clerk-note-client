@@ -12,6 +12,8 @@ const Dashboard = () => {
   const { user } = useUser();
   const { getToken } = useAuth();
 
+  const [selectedIds, setSelectedIds] = useState([]);
+
   const [mongoUserId, setMongoUserId] = useState("");
   const [notes, setNotes] = useState([]);
   const [showNewNoteModal, setShowNewNoteModal] = useState(false);
@@ -66,7 +68,16 @@ const Dashboard = () => {
         {/* User HomePage */}
         <Col xs={10} lg={11} className="px-0">
           <UserNavBar />
-          <h2 className="p-4 my-4">Notes</h2>
+          <Stack
+            direction="horizontal"
+            className="d-flex justify-content-between mx-4"
+          >
+            <h2 className="p-4 my-4">Notes</h2>
+            <button type="button" class="btn btn-outline-dark">
+              Delete Selected <span class="badge text-bg-danger">4</span>
+            </button>
+          </Stack>
+
           <Stack
             gap={4}
             direction="horizontal"
