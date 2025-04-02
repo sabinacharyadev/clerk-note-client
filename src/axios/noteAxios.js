@@ -55,8 +55,9 @@ export const createNote = async (getToken, mongoUserId, note) => {
 // UPDATE NOTE
 export const updateNote = async (getToken, note) => {
   const token = await getToken();
+  console.log(note);
 
-  await axios
+  return await axios
     .patch(
       `${API_BASE_URL}/note`,
       {

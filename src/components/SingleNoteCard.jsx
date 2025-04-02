@@ -3,23 +3,29 @@ import { format } from "date-fns";
 import { AiOutlineEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { useState } from "react";
+import { useAuth } from "@clerk/clerk-react";
+import { updateNote } from "../axios/noteAxios";
 
 const SingleNoteCard = ({ noteData }) => {
+  const { getToken } = useAuth();
   const { note, updatedAt = "", backgroundColor } = noteData;
   const [isEditMode, setIsEditMode] = useState(false);
-  const [form, setForm] = useState({ ...noteData });
+
+  const [formData, setFormData] = useState(noteData);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...note, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleOnEditClick = () => {
     setIsEditMode(true);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+    const response = await updateNote(getToken, formData);
+    console.log(response);
     setIsEditMode(false);
   };
   return (
@@ -38,7 +44,7 @@ const SingleNoteCard = ({ noteData }) => {
                 className={`${backgroundColor} border-0`}
                 as="textarea"
                 name="note"
-                value={form.note}
+                value={formData.note}
                 rows={6}
                 onChange={handleOnChange}
                 autoFocus
