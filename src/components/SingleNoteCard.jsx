@@ -17,7 +17,9 @@ const SingleNoteCard = ({ noteData }) => {
   const handleOnEditClick = () => {
     setIsEditMode(true);
   };
-  const handleOnUpdateClick = () => {
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
     setIsEditMode(false);
   };
   return (
@@ -25,9 +27,9 @@ const SingleNoteCard = ({ noteData }) => {
       className={backgroundColor}
       style={{ width: "18rem", height: "18rem", borderRadius: "2rem" }}
     >
-      <Card.Body className="p-4">
-        {isEditMode && (
-          <Form>
+      <Form onSubmit={handleOnSubmit}>
+        <Card.Body style={{ height: "14rem" }} className="p-4">
+          {isEditMode && (
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
@@ -42,46 +44,46 @@ const SingleNoteCard = ({ noteData }) => {
                 autoFocus
               />
             </Form.Group>
-          </Form>
-        )}
-        {!isEditMode && <Card.Text>{note}</Card.Text>}
-      </Card.Body>
-      <Card.Footer>
-        <Stack
-          direction="horizontal"
-          className="d-flex justify-content-between align-items-center"
-        >
-          <Card.Text className="my-auto">
-            {format(new Date(updatedAt), "MMM dd, yyyy")}
-          </Card.Text>
-          <Stack direction="horizontal">
-            {!isEditMode && (
-              <Button
-                onClick={handleOnEditClick}
-                variant={
-                  backgroundColor === "bg-white text-black"
-                    ? "outline-dark"
-                    : "outline-light"
-                }
-              >
-                <AiOutlineEdit size="1.5em" />
-              </Button>
-            )}
-            {isEditMode && (
-              <Button
-                onClick={handleOnUpdateClick}
-                variant={
-                  backgroundColor === "bg-white text-black"
-                    ? "outline-dark"
-                    : "outline-light"
-                }
-              >
-                <TiTick size="1.5em" />
-              </Button>
-            )}
+          )}
+          {!isEditMode && <Card.Text className="p-2">{note}</Card.Text>}
+        </Card.Body>
+        <Card.Footer>
+          <Stack
+            direction="horizontal"
+            className="d-flex justify-content-between align-items-center"
+          >
+            <Card.Text className="my-auto">
+              {format(new Date(updatedAt), "MMM dd, yyyy")}
+            </Card.Text>
+            <Stack direction="horizontal">
+              {!isEditMode && (
+                <Button
+                  onClick={handleOnEditClick}
+                  variant={
+                    backgroundColor === "bg-white text-black"
+                      ? "outline-dark"
+                      : "outline-light"
+                  }
+                >
+                  <AiOutlineEdit size="1.5em" />
+                </Button>
+              )}
+              {isEditMode && (
+                <Button
+                  type="submit"
+                  variant={
+                    backgroundColor === "bg-white text-black"
+                      ? "outline-dark"
+                      : "outline-light"
+                  }
+                >
+                  <TiTick size="1.5em" />
+                </Button>
+              )}
+            </Stack>
           </Stack>
-        </Stack>
-      </Card.Footer>
+        </Card.Footer>
+      </Form>
     </Card>
   );
 };
