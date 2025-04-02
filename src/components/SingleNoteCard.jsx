@@ -6,12 +6,10 @@ import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { updateNote } from "../axios/noteAxios";
 
-const SingleNoteCard = ({ noteData }) => {
+const SingleNoteCard = ({ noteData, handleOnCardClick, selectedIds }) => {
   const { getToken } = useAuth();
 
   const { note, updatedAt = "", backgroundColor } = noteData;
-
-  const [selectedCard, setSelectedCard] = useState([]);
 
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -32,26 +30,14 @@ const SingleNoteCard = ({ noteData }) => {
     console.log(response);
     setIsEditMode(false);
   };
-
-  const handleOnCardClick = () => {
-    const isDuplicate = selectedCard.includes(noteData._id);
-    if (!isDuplicate) {
-      setSelectedCard([noteData._id]);
-    } else {
-      setSelectedCard([]);
-    }
-  };
-
-  //console.log(selectedCard);
-
   return (
     <Card
       className={`${backgroundColor} ${
-        selectedCard.length ? "border-danger border-3" : "border"
+        selectedIds.includes(noteData._id) ? "border-danger border-3" : "border"
       }`}
       role="button"
       style={{ width: "18rem", height: "18rem", borderRadius: "2rem" }}
-      onClick={handleOnCardClick}
+      onClick={() => handleOnCardClick(noteData._id)}
     >
       <Form onSubmit={handleOnSubmit}>
         <Card.Body style={{ height: "14rem" }} className="p-4">

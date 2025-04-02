@@ -13,6 +13,7 @@ const Dashboard = () => {
   const { getToken } = useAuth();
 
   const [selectedIds, setSelectedIds] = useState([]);
+  // const [selectedCard, setSelectedCard] = useState([]);
 
   const [mongoUserId, setMongoUserId] = useState("");
   const [notes, setNotes] = useState([]);
@@ -35,6 +36,15 @@ const Dashboard = () => {
     createNote(getToken, mongoUserId, note);
     getNotes();
     handleNewNoteModalClose();
+  };
+
+  const handleOnCardClick = (noteId) => {
+    const isDuplicate = selectedIds.includes(noteId);
+    if (!isDuplicate) {
+      setSelectedIds([...selectedIds, noteId]);
+    } else {
+      setSelectedIds(selectedIds.filter((item) => item !== noteId));
+    }
   };
 
   saveUser(getToken, user, setMongoUserId);
@@ -73,9 +83,12 @@ const Dashboard = () => {
             className="d-flex justify-content-between mx-4"
           >
             <h2 className="p-4 my-4">Notes</h2>
-            <button type="button" class="btn btn-outline-dark">
-              Delete Selected <span class="badge text-bg-danger">4</span>
-            </button>
+            {!!selectedIds.length && (
+              <button type="button" class="btn btn-outline-dark">
+                Delete Selected{" "}
+                <span class="badge text-bg-danger">{selectedIds.length}</span>
+              </button>
+            )}
           </Stack>
 
           <Stack
@@ -85,7 +98,12 @@ const Dashboard = () => {
             className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
           >
             {notes.map((note) => (
-              <SingleNoteCard key={note._id} noteData={note} />
+              <SingleNoteCard
+                key={note._id}
+                noteData={note}
+                handleOnCardClick={handleOnCardClick}
+                selectedIds={selectedIds}
+              />
             ))}
           </Stack>
 
