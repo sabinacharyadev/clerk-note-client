@@ -1,18 +1,14 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Button, Row, Col, Stack } from "react-bootstrap";
 import SingleNoteCard from "./SingleNoteCard";
 import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
 import NewNoteModal from "./NewNoteModal";
+import { saveUser } from "../axios/userAxios";
+import { createNote, getNotes } from "../axios/noteAxios";
 
 const Dashboard = () => {
-  const BASE_LOCAL_URL = import.meta.env.VITE_BASE_API_URL_LOCAL;
-  const BASE_PROD_URL = import.meta.env.VITE_BASE_API_URL_PROD;
-
-  const API_BASE_URL = import.meta.env.PROD ? BASE_PROD_URL : BASE_LOCAL_URL;
-
   const { user } = useUser();
   const { getToken } = useAuth();
 
@@ -34,73 +30,13 @@ const Dashboard = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const token = await getToken();
-
-    await axios
-      .post(
-        `${API_BASE_URL}/note`,
-        {
-          userId: mongoUserId,
-          note: note,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
-      .then((res) => res.data)
-      .catch((error) => console.log(error));
+    createNote(getToken, mongoUserId, note);
     getNotes();
     handleNewNoteModalClose();
   };
 
-  const saveUser = async () => {
-    const token = await getToken();
-    const response = await axios
-      .post(
-        `${API_BASE_URL}/saveUser`,
-        {
-          userId: user.id,
-          email: user.primaryEmailAddress.emailAddress,
-          name: user.fullName,
-          role: "buyer",
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
-      .then((res) => res.data)
-      .catch((error) => console.log(error));
-
-    const { data } = await response;
-
-    setMongoUserId(data._id);
-    // console.log(data);
-  };
-
-  const getNotes = async () => {
-    const token = await getToken();
-
-    const response = await axios
-      .get(
-        `${API_BASE_URL}/note`,
-
-        {
-          headers: {
-            Authorization: token,
-            userId: mongoUserId,
-          },
-        }
-      )
-      .then((res) => res.data)
-      .catch((error) => console.log(error));
-
-    const { data } = await response;
-    setNotes(data);
-  };
+  saveUser(getToken, user, setMongoUserId);
+  getNotes(getToken, mongoUserId, setNotes);
 
   useEffect(() => {
     saveUser();
