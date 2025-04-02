@@ -8,7 +8,7 @@ export const saveUser = async (getToken, user, setMongoUserId) => {
   const token = await getToken();
   const response = await axios
     .post(
-      `${API_BASE_URL}/saveUser`,
+      `${API_BASE_URL}/user`,
       {
         userId: user.id,
         email: user.primaryEmailAddress.emailAddress,

@@ -51,3 +51,23 @@ export const createNote = async (getToken, mongoUserId, note) => {
     .then((res) => res.data)
     .catch((error) => console.log(error));
 };
+
+// UPDATE NOTE
+export const updateNote = async (getToken, note) => {
+  const token = await getToken();
+
+  await axios
+    .patch(
+      `${API_BASE_URL}/note`,
+      {
+        note: note,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+};
