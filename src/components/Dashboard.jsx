@@ -55,6 +55,7 @@ const Dashboard = () => {
   const handleOnDeleteClick = async () => {
     const response = await deleteNotes(getToken, selectedIds);
     console.log(response);
+    setSelectedIds([]);
     getSavedNotes();
   };
 

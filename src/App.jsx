@@ -6,8 +6,6 @@ import HomePage from "./components/HomePage";
 
 function App() {
   const { user } = useUser();
-  console.log(!!user);
-
   if (!user) {
     localStorage.setItem("userSession", null);
   }
