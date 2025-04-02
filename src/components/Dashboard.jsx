@@ -7,37 +7,41 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import NewNoteModal from "./NewNoteModal";
 import { saveUser } from "../axios/userAxios";
 import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
+import { compareDesc, parseISO } from "date-fns";
 
 const Dashboard = () => {
   const { user } = useUser();
   const { getToken } = useAuth();
+  const dbUserId = localStorage.getItem("userSession");
 
   const [selectedIds, setSelectedIds] = useState([]);
-  // const [selectedCard, setSelectedCard] = useState([]);
 
-  const [mongoUserId, setMongoUserId] = useState("");
   const [notes, setNotes] = useState([]);
   const [showNewNoteModal, setShowNewNoteModal] = useState(false);
+
+  const [form, setForm] = useState({ note: "" });
+  const { note } = form;
+
   const handleNewNoteModalClose = () => {
     setShowNewNoteModal(false);
     setForm("");
   };
-
-  const [form, setForm] = useState({ note: "" });
-  const { note } = form;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
+  // Handle Add new note button
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    createNote(getToken, mongoUserId, note);
-    getNotes();
+    const data = await createNote(getToken, dbUserId, note);
+    console.log(data);
+    getSavedNotes();
     handleNewNoteModalClose();
   };
 
+  // Handle multiple cards clicked
   const handleOnCardClick = (noteId) => {
     const isDuplicate = selectedIds.includes(noteId);
     if (!isDuplicate) {
@@ -47,18 +51,34 @@ const Dashboard = () => {
     }
   };
 
+  // Handles delete button clicked
   const handleOnDeleteClick = async () => {
     const response = await deleteNotes(getToken, selectedIds);
     console.log(response);
+    getSavedNotes();
   };
 
-  saveUser(getToken, user, setMongoUserId);
-  getNotes(getToken, mongoUserId, setNotes);
+  const getSavedNotes = async () => {
+    const { data } = await getNotes(getToken, dbUserId);
+
+    const sortedArrayByDate = data.sort((a, b) =>
+      compareDesc(parseISO(a.updatedAt), parseISO(b.updatedAt))
+    );
+    setNotes(sortedArrayByDate);
+  };
+
+  const saveUserID = async () => {
+    const { data } = await saveUser(getToken, user);
+    if (dbUserId) {
+      localStorage.setItem("userSession", null);
+    }
+    localStorage.setItem("userSession", data._id);
+    getSavedNotes();
+  };
 
   useEffect(() => {
-    saveUser();
-    if (mongoUserId) getNotes();
-  }, [mongoUserId]);
+    saveUserID();
+  }, []);
 
   return (
     <>
@@ -112,6 +132,8 @@ const Dashboard = () => {
                 noteData={note}
                 handleOnCardClick={handleOnCardClick}
                 selectedIds={selectedIds}
+                dbUserId={dbUserId}
+                setNotes={setNotes}
               />
             ))}
           </Stack>

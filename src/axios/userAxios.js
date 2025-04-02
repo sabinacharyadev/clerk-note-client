@@ -4,9 +4,9 @@ const BASE_PROD_URL = import.meta.env.VITE_BASE_API_URL_PROD;
 
 const API_BASE_URL = import.meta.env.PROD ? BASE_PROD_URL : BASE_LOCAL_URL;
 
-export const saveUser = async (getToken, user, setMongoUserId) => {
+export const saveUser = async (getToken, user) => {
   const token = await getToken();
-  const response = await axios
+  return await axios
     .post(
       `${API_BASE_URL}/user`,
       {
@@ -23,8 +23,4 @@ export const saveUser = async (getToken, user, setMongoUserId) => {
     )
     .then((res) => res.data)
     .catch((error) => console.log(error));
-
-  const { data } = await response;
-
-  setMongoUserId(data._id);
 };

@@ -1,12 +1,18 @@
 import { Button, Card, Stack, Form } from "react-bootstrap";
-import { format } from "date-fns";
+import { compareDesc, format, parseISO } from "date-fns";
 import { AiOutlineEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
-import { updateNote } from "../axios/noteAxios";
+import { getNotes, updateNote } from "../axios/noteAxios";
 
-const SingleNoteCard = ({ noteData, handleOnCardClick, selectedIds }) => {
+const SingleNoteCard = ({
+  noteData,
+  handleOnCardClick,
+  selectedIds,
+  dbUserId,
+  setNotes,
+}) => {
   const { getToken } = useAuth();
 
   const { note, updatedAt = "", backgroundColor } = noteData;
@@ -24,11 +30,21 @@ const SingleNoteCard = ({ noteData, handleOnCardClick, selectedIds }) => {
     setIsEditMode(true);
   };
 
+  const getSavedNotes = async () => {
+    const { data } = await getNotes(getToken, dbUserId);
+
+    const sortedArrayByDate = data.sort((a, b) =>
+      compareDesc(parseISO(a.updatedAt), parseISO(b.updatedAt))
+    );
+    setNotes(sortedArrayByDate);
+  };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const response = await updateNote(getToken, formData);
     console.log(response);
     setIsEditMode(false);
+    getSavedNotes();
   };
   return (
     <Card
