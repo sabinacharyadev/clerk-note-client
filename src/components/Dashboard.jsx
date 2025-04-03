@@ -77,7 +77,13 @@ const Dashboard = () => {
 
   return (
     <>
-      <Row className="dvh-100" style={{ fontFamily: "Comfortaa" }}>
+      <Row
+        style={{
+          fontFamily: "Comfortaa",
+          overflow: "hidden",
+          height: "100dvh",
+        }}
+      >
         {/* Side Panel */}
         {/* Visibility none on small screen */}
         <Col
@@ -132,7 +138,7 @@ const Dashboard = () => {
           )}
 
           {/* Display list of notes */}
-          {notes && (
+          {notes.length && (
             <Stack
               gap={4}
               direction="horizontal"
@@ -161,16 +167,17 @@ const Dashboard = () => {
             </Stack>
           )}
         </Col>
+        {/* Add button on small screen */}
+        <div className="position-relative">
+          <Button
+            className="position-absolute bottom-0 end-0 d-block d-sm-none"
+            variant="bg-transparent"
+            onClick={handleOnSubmit}
+          >
+            <IoAddCircleSharp size="3.5em" />
+          </Button>
+        </div>
       </Row>
-      {/* Add button on small screen */}
-
-      <Button
-        className="position-absolute bottom-0 end-0 d-block d-sm-none"
-        variant="bg-transparent"
-        onClick={handleOnSubmit}
-      >
-        <IoAddCircleSharp size="3.5em" />
-      </Button>
     </>
   );
 };
