@@ -136,7 +136,7 @@ const Dashboard = () => {
             <Stack
               gap={4}
               direction="horizontal"
-              style={{ height: "75vh" }}
+              style={{ height: "80vh" }}
               className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
             >
               {isPlaceholderActive && <SingleNoteCardPlaceholder />}
