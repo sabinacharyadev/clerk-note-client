@@ -92,8 +92,8 @@ const SingleNoteCard = ({
             className="d-flex justify-content-between align-items-center"
             style={{ height: "3rem" }}
           >
-            <Card.Text className="my-auto">
-              {format(new Date(updatedAt), "MMM dd, yyyy")}
+            <Card.Text className="my-auto" style={{ fontSize: "0.7rem" }}>
+              {format(new Date(updatedAt), "dd MMM")}
             </Card.Text>
             <Stack direction="horizontal">
               {isEditMode && (
