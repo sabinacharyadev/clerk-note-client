@@ -1,6 +1,6 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
-import { Button, Row, Col, Stack } from "react-bootstrap";
+import { Button, Row, Col, Stack, Spinner } from "react-bootstrap";
 import SingleNoteCard from "./SingleNoteCard";
 import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [notes, setNotes] = useState([]);
 
   const [isPlaceholderActive, setIsPlaceholderActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Handle Add new note button
   const handleOnSubmit = async () => {
@@ -42,10 +43,12 @@ const Dashboard = () => {
 
   // Handles delete button clicked
   const handleOnDeleteClick = async () => {
+    setIsLoading(true);
     const response = await deleteNotes(getToken, selectedIds);
     console.log(response);
     setSelectedIds([]);
     getSavedNotes();
+    setIsLoading(false);
   };
 
   // Fetches new note data
@@ -105,12 +108,17 @@ const Dashboard = () => {
                 class="btn btn-outline-dark"
               >
                 Delete Selected{" "}
-                <span class="badge text-bg-danger">{selectedIds.length}</span>
+                {isLoading && (
+                  <Spinner animation="border" variant="danger" size="sm" />
+                )}
+                {!isLoading && (
+                  <span class="badge text-bg-danger">{selectedIds.length}</span>
+                )}
               </button>
             )}
           </Stack>
 
-          {!notes.length && (
+          {!notes.length && !isPlaceholderActive && (
             <p className="p-5">Add some quick notes to get started. . .</p>
           )}
 
