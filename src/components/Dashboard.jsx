@@ -7,6 +7,7 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import { saveUser } from "../axios/userAxios";
 import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
 import { compareDesc, parseISO } from "date-fns";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
@@ -63,6 +64,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     saveUserID();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
