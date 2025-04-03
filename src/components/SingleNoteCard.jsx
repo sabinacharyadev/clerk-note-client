@@ -1,6 +1,5 @@
 import { Button, Card, Stack, Form } from "react-bootstrap";
 import { compareDesc, format, parseISO } from "date-fns";
-import { AiOutlineEdit } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
@@ -16,20 +15,15 @@ const SingleNoteCard = ({
 }) => {
   const { getToken } = useAuth();
 
-  const { note, updatedAt = "", backgroundColor } = noteData;
+  const { updatedAt = "", backgroundColor } = noteData;
 
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(true);
 
   const [formData, setFormData] = useState(noteData);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleOnEditClick = (e) => {
-    e.stopPropagation();
-    setIsEditMode(true);
   };
 
   const getSavedNotes = async () => {
@@ -53,6 +47,11 @@ const SingleNoteCard = ({
     e.stopPropagation();
   };
 
+  const handleOnTextAreaClick = (e) => {
+    e.stopPropagation();
+    setIsEditMode(true);
+  };
+
   return (
     <Card
       className={`${backgroundColor} ${
@@ -64,50 +63,39 @@ const SingleNoteCard = ({
     >
       <Form onSubmit={handleOnSubmit}>
         <Card.Body style={{ height: "14rem" }} className="p-4">
-          {isEditMode && (
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Control
-                className={`${backgroundColor} border-0`}
-                as="textarea"
-                name="note"
-                value={formData.note}
-                rows={6}
-                onChange={handleOnChange}
-                onClick={handleEventBubbling}
-                onFocus={(e) =>
-                  (e.target.style.boxShadow =
-                    generateTextAreaFocusColor(backgroundColor))
-                }
-                autoFocus
-              />
-            </Form.Group>
-          )}
-          {!isEditMode && <Card.Text className="p-2">{note}</Card.Text>}
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Control
+              className={`${backgroundColor} border-0`}
+              as="textarea"
+              placeholder="Note"
+              name="note"
+              value={formData.note}
+              rows={6}
+              onChange={handleOnChange}
+              onClick={handleOnTextAreaClick}
+              onFocus={(e) =>
+                (e.target.style.boxShadow =
+                  generateTextAreaFocusColor(backgroundColor))
+              }
+              autoFocus
+            />
+          </Form.Group>
         </Card.Body>
-        <Card.Footer>
+        <Card.Footer
+          style={{
+            borderBottomLeftRadius: "2rem",
+            borderBottomRightRadius: "2rem",
+          }}
+        >
           <Stack
             direction="horizontal"
             className="d-flex justify-content-between align-items-center"
+            style={{ height: "3rem" }}
           >
             <Card.Text className="my-auto">
               {format(new Date(updatedAt), "MMM dd, yyyy")}
             </Card.Text>
             <Stack direction="horizontal">
-              {!isEditMode && (
-                <Button
-                  onClick={handleOnEditClick}
-                  variant={
-                    backgroundColor === "bg-white text-black"
-                      ? "outline-dark"
-                      : "outline-light"
-                  }
-                >
-                  <AiOutlineEdit size="1.5em" />
-                </Button>
-              )}
               {isEditMode && (
                 <Button
                   type="submit"

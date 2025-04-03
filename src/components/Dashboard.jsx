@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   // Handle Add new note button
   const handleOnSubmit = async () => {
-    const data = await createNote(getToken, dbUserId, "New note");
+    const data = await createNote(getToken, dbUserId, "");
     console.log(data);
     getSavedNotes();
   };
