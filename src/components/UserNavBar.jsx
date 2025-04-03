@@ -6,6 +6,7 @@ const UserNavBar = () => {
   return (
     <Navbar className="bg-body-tertiary ">
       <Container>
+        <p className="fw-bold m-3 d-sm-none ">Notify</p>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="d-flex justify-content-center align-items-center">
             <span className="mx-3">

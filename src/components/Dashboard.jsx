@@ -22,7 +22,6 @@ const Dashboard = () => {
 
   const [isPlaceholderActive, setIsPlaceholderActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   // Handle Add new note button
   const handleOnSubmit = async () => {
     setIsPlaceholderActive(true);
@@ -80,27 +79,36 @@ const Dashboard = () => {
     <>
       <Row className="vh-100" style={{ fontFamily: "Comfortaa" }}>
         {/* Side Panel */}
+        {/* Visibility none on small screen */}
         <Col
-          xs={2}
+          sm={2}
           lg={1}
-          className="border shadow d-flex flex-column align-items-center"
+          className="d-none d-sm-block border shadow text-center"
         >
           <p className="fw-bold mt-4" style={{ marginBottom: "3rem" }}>
             Notify
           </p>
-          <Button variant="bg-transparent" onClick={handleOnSubmit}>
+
+          {/* Add button on large screen */}
+          <Button
+            className="d-none d-sm-block mx-auto"
+            variant="bg-transparent"
+            onClick={handleOnSubmit}
+          >
             <IoAddCircleSharp size="2.5em" />
           </Button>
         </Col>
 
         {/* User HomePage */}
-        <Col xs={10} lg={11} className="px-0">
+        <Col className="px-0">
           <UserNavBar />
+          {/* Heading Stack */}
           <Stack
             direction="horizontal"
             className="d-flex justify-content-between mx-4"
           >
             <h2 className="p-4 my-4">Notes</h2>
+            {/* Delete Button */}
             {!!selectedIds.length && (
               <button
                 type="button"
@@ -118,10 +126,12 @@ const Dashboard = () => {
             )}
           </Stack>
 
+          {/* Empty list message */}
           {!notes.length && !isPlaceholderActive && (
             <p className="p-5">Add some quick notes to get started. . .</p>
           )}
 
+          {/* Display list of notes */}
           {notes && (
             <Stack
               gap={4}
@@ -150,6 +160,15 @@ const Dashboard = () => {
               ))}
             </Stack>
           )}
+          {/* Add button on small screen */}
+
+          <Button
+            className="position-absolute bottom-0 end-0 d-block d-sm-none "
+            variant="bg-transparent"
+            onClick={handleOnSubmit}
+          >
+            <IoAddCircleSharp size="2.5em" />
+          </Button>
         </Col>
       </Row>
     </>
