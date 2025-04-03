@@ -77,7 +77,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Row className="vh-100" style={{ fontFamily: "Comfortaa" }}>
+      <Row className="dvh-100" style={{ fontFamily: "Comfortaa" }}>
         {/* Side Panel */}
         {/* Visibility none on small screen */}
         <Col
@@ -160,17 +160,17 @@ const Dashboard = () => {
               ))}
             </Stack>
           )}
-          {/* Add button on small screen */}
-
-          <Button
-            className="position-absolute bottom-0 end-0 d-block d-sm-none "
-            variant="bg-transparent"
-            onClick={handleOnSubmit}
-          >
-            <IoAddCircleSharp size="3.5em" />
-          </Button>
         </Col>
       </Row>
+      {/* Add button on small screen */}
+
+      <Button
+        className="position-absolute bottom-0 end-0 d-block d-sm-none"
+        variant="bg-transparent"
+        onClick={handleOnSubmit}
+      >
+        <IoAddCircleSharp size="3.5em" />
+      </Button>
     </>
   );
 };
