@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   const [notes, setNotes] = useState([]);
 
-  const [isPlaceholderActive, setIsPlaceholderActive] = useState(false);
+  const [isPlaceholderActive, setIsPlaceholderActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   // Handle Add new note button
