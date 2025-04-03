@@ -52,7 +52,6 @@ const SingleNoteCard = ({
   const handleEventBubbling = (e) => {
     e.stopPropagation();
   };
-  console.log(backgroundColor);
 
   return (
     <Card

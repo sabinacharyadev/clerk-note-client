@@ -120,32 +120,37 @@ const Dashboard = () => {
             )}
           </Stack>
 
-          <Stack
-            gap={4}
-            direction="horizontal"
-            style={{ height: "75vh" }}
-            className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
-          >
-            {notes.map((note) => (
-              <motion.div
-                key={note._id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <SingleNoteCard
-                  noteData={note}
-                  handleOnCardClick={handleOnCardClick}
-                  selectedIds={selectedIds}
-                  dbUserId={dbUserId}
-                  setNotes={setNotes}
-                />
-              </motion.div>
-            ))}
-          </Stack>
+          {!notes.length && (
+            <p className="p-5">Add some quick notes to get started. . .</p>
+          )}
 
+          {notes && (
+            <Stack
+              gap={4}
+              direction="horizontal"
+              style={{ height: "75vh" }}
+              className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
+            >
+              {notes.map((note) => (
+                <motion.div
+                  key={note._id}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <SingleNoteCard
+                    noteData={note}
+                    handleOnCardClick={handleOnCardClick}
+                    selectedIds={selectedIds}
+                    dbUserId={dbUserId}
+                    setNotes={setNotes}
+                  />
+                </motion.div>
+              ))}
+            </Stack>
+          )}
           <NewNoteModal
             showNewNoteModal={showNewNoteModal}
             handleNewNoteModalClose={handleNewNoteModalClose}
