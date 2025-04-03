@@ -18,7 +18,7 @@ const generateTextAreaFocusColor = (cardBackgroundColor) => {
       break;
 
     case "bg-success text-white":
-      color = "0 0 5px #28a745";
+      color = "0 0 5px #198754";
       break;
 
     case "bg-warning text-white":
