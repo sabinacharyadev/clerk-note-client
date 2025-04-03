@@ -1,5 +1,5 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Form, Navbar } from "react-bootstrap";
 
 const UserNavBar = () => {
   const { user } = useUser();
@@ -8,8 +8,14 @@ const UserNavBar = () => {
       <Container>
         <p className="fw-bold m-3 d-sm-none ">Notify</p>
         <Navbar.Collapse className="justify-content-end">
+          <Form.Control
+            type="text"
+            placeholder="Search your notes"
+            className="me-3"
+          />
+
           <Navbar.Text className="d-flex justify-content-center align-items-center">
-            <span className="mx-3">
+            <span className="mx-3 d-none d-sm-block ">
               {user.firstName && <span>Hello, {user.firstName}</span>}
             </span>
             <UserButton />

@@ -138,7 +138,7 @@ const Dashboard = () => {
           )}
 
           {/* Display list of notes */}
-          {notes.length && (
+          {!!notes.length && (
             <Stack
               gap={4}
               direction="horizontal"
