@@ -26,11 +26,11 @@ const generateTextAreaFocusColor = (cardBackgroundColor) => {
       break;
 
     case "bg-info text-white":
-      color = "0 0 5px #17a2b8";
+      color = "0 0 5px #0dcaf0";
       break;
 
     case "bg-dark text-white":
-      color = "0 0 5px black";
+      color = "0 0 5px #212529";
       break;
     default:
       color = "0 0 5px #000000";
