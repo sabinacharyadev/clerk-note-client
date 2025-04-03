@@ -167,7 +167,7 @@ const Dashboard = () => {
             variant="bg-transparent"
             onClick={handleOnSubmit}
           >
-            <IoAddCircleSharp size="2.5em" />
+            <IoAddCircleSharp size="3.5em" />
           </Button>
         </Col>
       </Row>
