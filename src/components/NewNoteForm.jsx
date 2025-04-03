@@ -16,6 +16,7 @@ const NewNoteForm = ({
           value={note}
           onChange={handleOnChange}
           placeholder="Enter note"
+          autoFocus
         />
       </Form.Group>
 

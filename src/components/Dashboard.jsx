@@ -8,6 +8,7 @@ import NewNoteModal from "./NewNoteModal";
 import { saveUser } from "../axios/userAxios";
 import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
 import { compareDesc, parseISO } from "date-fns";
+import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -126,14 +127,22 @@ const Dashboard = () => {
             className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
           >
             {notes.map((note) => (
-              <SingleNoteCard
+              <motion.div
                 key={note._id}
-                noteData={note}
-                handleOnCardClick={handleOnCardClick}
-                selectedIds={selectedIds}
-                dbUserId={dbUserId}
-                setNotes={setNotes}
-              />
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <SingleNoteCard
+                  noteData={note}
+                  handleOnCardClick={handleOnCardClick}
+                  selectedIds={selectedIds}
+                  dbUserId={dbUserId}
+                  setNotes={setNotes}
+                />
+              </motion.div>
             ))}
           </Stack>
 

@@ -5,6 +5,7 @@ import { TiTick } from "react-icons/ti";
 import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { getNotes, updateNote } from "../axios/noteAxios";
+import generateTextAreaFocusColor from "../utilities/TextAreaFocusColorMatcher";
 
 const SingleNoteCard = ({
   noteData,
@@ -26,7 +27,8 @@ const SingleNoteCard = ({
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleOnEditClick = () => {
+  const handleOnEditClick = (e) => {
+    e.stopPropagation();
     setIsEditMode(true);
   };
 
@@ -46,6 +48,12 @@ const SingleNoteCard = ({
     setIsEditMode(false);
     getSavedNotes();
   };
+
+  const handleEventBubbling = (e) => {
+    e.stopPropagation();
+  };
+  console.log(backgroundColor);
+
   return (
     <Card
       className={`${backgroundColor} ${
@@ -69,6 +77,11 @@ const SingleNoteCard = ({
                 value={formData.note}
                 rows={6}
                 onChange={handleOnChange}
+                onClick={handleEventBubbling}
+                onFocus={(e) =>
+                  (e.target.style.boxShadow =
+                    generateTextAreaFocusColor(backgroundColor))
+                }
                 autoFocus
               />
             </Form.Group>
@@ -99,6 +112,7 @@ const SingleNoteCard = ({
               {isEditMode && (
                 <Button
                   type="submit"
+                  onClick={handleEventBubbling}
                   variant={
                     backgroundColor === "bg-white text-black"
                       ? "outline-dark"
