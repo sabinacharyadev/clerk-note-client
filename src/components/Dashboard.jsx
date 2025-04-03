@@ -9,6 +9,7 @@ import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
 import { compareDesc, parseISO } from "date-fns";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import SingleNoteCardPlaceholder from "./SingleNoteCardPlaceholder";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -19,8 +20,11 @@ const Dashboard = () => {
 
   const [notes, setNotes] = useState([]);
 
+  const [isPlaceholderActive, setIsPlaceholderActive] = useState(false);
+
   // Handle Add new note button
   const handleOnSubmit = async () => {
+    setIsPlaceholderActive(true);
     const data = await createNote(getToken, dbUserId, "");
     console.log(data);
     getSavedNotes();
@@ -53,6 +57,8 @@ const Dashboard = () => {
       compareDesc(parseISO(a.updatedAt), parseISO(b.updatedAt))
     );
     setNotes(sortedArrayByDate);
+
+    setIsPlaceholderActive(false);
   };
 
   // Save user id on successful login
@@ -115,6 +121,7 @@ const Dashboard = () => {
               style={{ height: "75vh" }}
               className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
             >
+              {isPlaceholderActive && <SingleNoteCardPlaceholder />}
               {notes.map((note) => (
                 <motion.div
                   key={note._id}

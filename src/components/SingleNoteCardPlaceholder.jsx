@@ -2,10 +2,7 @@ import { Card, Placeholder } from "react-bootstrap";
 
 const SingleNoteCardPlaceholder = () => {
   return (
-    <Card
-      style={{ width: "18rem", height: "18rem", borderRadius: "2rem" }}
-      className="m-5"
-    >
+    <Card style={{ width: "18rem", height: "18rem", borderRadius: "2rem" }}>
       <Card.Body style={{ height: "14rem" }}>
         <Placeholder as={Card.Body} animation="glow">
           <Placeholder xs={12} />
