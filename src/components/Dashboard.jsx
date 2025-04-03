@@ -107,7 +107,7 @@ const Dashboard = () => {
             direction="horizontal"
             className="d-flex justify-content-between mx-4"
           >
-            <h2 className="p-4 my-4">Notes</h2>
+            <h2 className="p-4 py-0 mt-4">Notes</h2>
             {/* Delete Button */}
             {!!selectedIds.length && (
               <button
