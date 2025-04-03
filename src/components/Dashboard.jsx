@@ -4,7 +4,6 @@ import { Button, Row, Col, Stack } from "react-bootstrap";
 import SingleNoteCard from "./SingleNoteCard";
 import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
-import NewNoteModal from "./NewNoteModal";
 import { saveUser } from "../axios/userAxios";
 import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
 import { compareDesc, parseISO } from "date-fns";
@@ -18,28 +17,12 @@ const Dashboard = () => {
   const [selectedIds, setSelectedIds] = useState([]);
 
   const [notes, setNotes] = useState([]);
-  const [showNewNoteModal, setShowNewNoteModal] = useState(false);
-
-  const [form, setForm] = useState({ note: "" });
-  const { note } = form;
-
-  const handleNewNoteModalClose = () => {
-    setShowNewNoteModal(false);
-    setForm("");
-  };
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
 
   // Handle Add new note button
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    const data = await createNote(getToken, dbUserId, note);
+  const handleOnSubmit = async () => {
+    const data = await createNote(getToken, dbUserId, "New note");
     console.log(data);
     getSavedNotes();
-    handleNewNoteModalClose();
   };
 
   // Handle multiple cards clicked
@@ -60,6 +43,7 @@ const Dashboard = () => {
     getSavedNotes();
   };
 
+  // Fetches new note data
   const getSavedNotes = async () => {
     const dbUserId = localStorage.getItem("userSession");
     const { data } = await getNotes(getToken, dbUserId);
@@ -70,6 +54,7 @@ const Dashboard = () => {
     setNotes(sortedArrayByDate);
   };
 
+  // Save user id on successful login
   const saveUserID = async () => {
     const { data } = await saveUser(getToken, user);
     localStorage.setItem("userSession", data._id);
@@ -92,10 +77,7 @@ const Dashboard = () => {
           <p className="fw-bold mt-4" style={{ marginBottom: "3rem" }}>
             Notify
           </p>
-          <Button
-            variant="bg-transparent"
-            onClick={() => setShowNewNoteModal(true)}
-          >
+          <Button variant="bg-transparent" onClick={handleOnSubmit}>
             <IoAddCircleSharp size="2.5em" />
           </Button>
         </Col>
@@ -151,14 +133,6 @@ const Dashboard = () => {
               ))}
             </Stack>
           )}
-          <NewNoteModal
-            showNewNoteModal={showNewNoteModal}
-            handleNewNoteModalClose={handleNewNoteModalClose}
-            handleOnSubmit={handleOnSubmit}
-            note={note}
-            setForm={setForm}
-            handleOnChange={handleOnChange}
-          />
         </Col>
       </Row>
     </>
