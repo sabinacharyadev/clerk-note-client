@@ -8,6 +8,7 @@ const UserNavBar = () => {
       <Container>
         <p className="fw-bold m-3 d-sm-none ">Notify</p>
         <Navbar.Collapse className="justify-content-end">
+          {/* Search note */}
           <Form.Control
             type="text"
             placeholder="Search your notes"

@@ -80,7 +80,6 @@ const Dashboard = () => {
       <Row
         style={{
           fontFamily: "Comfortaa",
-          overflow: "hidden",
           height: "100dvh",
         }}
       >
