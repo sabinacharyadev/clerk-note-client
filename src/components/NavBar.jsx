@@ -3,7 +3,7 @@ import { Button, Container, Navbar } from "react-bootstrap";
 
 const NavBar = () => {
   return (
-    <Navbar className="bg-body-tertiary position-fixed vw-100">
+    <Navbar className="bg-body-tertiary vw-100">
       <Container>
         <Navbar.Brand className="fw-bold" href="#home">
           Notify
