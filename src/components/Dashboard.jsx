@@ -54,7 +54,6 @@ const Dashboard = () => {
   const getSavedNotes = async () => {
     const dbUserId = localStorage.getItem("userSession");
     const { data } = await getNotes(getToken, dbUserId);
-
     const sortedArrayByDate = data.sort((a, b) =>
       compareDesc(parseISO(a.updatedAt), parseISO(b.updatedAt))
     );
@@ -137,7 +136,7 @@ const Dashboard = () => {
           )}
 
           {/* Display list of notes */}
-          {!!notes.length && (
+          {notes && (
             <Stack
               gap={4}
               direction="horizontal"
