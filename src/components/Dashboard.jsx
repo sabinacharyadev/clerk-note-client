@@ -47,13 +47,13 @@ const Dashboard = () => {
 
   // Handles delete button clicked
   const handleOnDeleteClick = async () => {
-    setSearchedString("");
     setIsLoading(true);
     const response = await deleteNotes(getToken, selectedIds);
     console.log(response);
     setSelectedIds([]);
     getSavedNotes();
     setIsLoading(false);
+    setSearchedString("");
   };
 
   // Handles Search functionality
