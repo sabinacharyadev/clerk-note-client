@@ -20,7 +20,7 @@ Clerk Note Client is a **React-based frontend** application designed for managin
 - **UI Library**: React Bootstrap, Bootstrap
 - **HTTP Client**: Axios
 - **Authentication**: Clerk (for user authentication)
-- **Backend**: [Clerk Note Server](https://github.com/sabinacharyadev/clerk-note-server) _(must be running for full functionality)_
+- **Backend**: [Clerk Note Server](https://github.com/sabinacharyadev/clerk-note-api) _(must be running for full functionality)_
 
 ## 📌 Prerequisites
 
@@ -28,7 +28,7 @@ Before running the project, ensure you have the following installed:
 
 - Node.js (latest LTS version recommended)
 - npm or yarn
-- A running backend server ([Clerk Note Server](https://github.com/sabinacharyadev/clerk-note-server))
+- A running backend server ([Clerk Note Server](https://github.com/sabinacharyadev/clerk-note-api))
 
 ## Getting Started
 
