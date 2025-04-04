@@ -28,6 +28,7 @@ const Dashboard = () => {
 
   // Handle Add new note button
   const handleOnSubmit = async () => {
+    setSearchedString("");
     setIsPlaceholderActive(true);
     const data = await createNote(getToken, dbUserId, "");
     console.log(data);
@@ -46,6 +47,7 @@ const Dashboard = () => {
 
   // Handles delete button clicked
   const handleOnDeleteClick = async () => {
+    setSearchedString("");
     setIsLoading(true);
     const response = await deleteNotes(getToken, selectedIds);
     console.log(response);
@@ -128,7 +130,7 @@ const Dashboard = () => {
         <Col className="px-0">
           <UserNavBar
             handleOnSearchTextChange={handleOnSearchTextChange}
-            searchData={searchedString}
+            searchedString={searchedString}
           />
           {/* Heading Stack */}
           <Stack
