@@ -124,7 +124,9 @@ const Dashboard = () => {
                   <Spinner animation="border" variant="danger" size="sm" />
                 )}
                 {!isLoading && (
-                  <span class="badge text-bg-danger">{selectedIds.length}</span>
+                  <span className="badge text-bg-danger">
+                    {selectedIds.length}
+                  </span>
                 )}
               </button>
             )}
@@ -168,8 +170,8 @@ const Dashboard = () => {
         {/* Add button on small screen */}
 
         <Button
-          className="position-fixed bottom-0 mb-4 me-2 text-end end-0 d-block d-sm-none"
-          variant="bg-transparent"
+          className="position-fixed bottom-0 end-0 w-auto d-sm-none mb-4 me-2 text-end"
+          variant="transparent"
           onClick={handleOnSubmit}
         >
           <IoAddCircleSharp size="3.5em" />
