@@ -6,10 +6,10 @@ import UserNavBar from "./UserNavBar";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { saveUser } from "../axios/userAxios";
 import { createNote, deleteNotes, getNotes } from "../axios/noteAxios";
-import { compareDesc, parseISO } from "date-fns";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import SingleNoteCardPlaceholder from "./SingleNoteCardPlaceholder";
+import sortNoteByDateDesc from "../utilities/sortNoteByDateDesc";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -22,6 +22,10 @@ const Dashboard = () => {
 
   const [isPlaceholderActive, setIsPlaceholderActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [searchedString, setSearchedString] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+
   // Handle Add new note button
   const handleOnSubmit = async () => {
     setIsPlaceholderActive(true);
@@ -50,15 +54,31 @@ const Dashboard = () => {
     setIsLoading(false);
   };
 
-  // Fetches new note data
+  // Handles Search functionality
+  const handleOnSearchTextChange = (e) => {
+    const { value } = e.target;
+    setSearchedString(value);
+    populateSearchResults(value);
+  };
+
+  const populateSearchResults = (query) => {
+    // fetch data from existing note
+    if (query) {
+      const queriedData = notes.filter((item) => item.note.includes(query));
+      const sortedArrayByDate = sortNoteByDateDesc(queriedData);
+      setSearchResult(sortedArrayByDate);
+      return;
+    }
+    setSearchResult([]);
+    getSavedNotes();
+  };
+
+  // Fetches new note data from api
   const getSavedNotes = async () => {
     const dbUserId = localStorage.getItem("userSession");
     const { data } = await getNotes(getToken, dbUserId);
-    const sortedArrayByDate = data.sort((a, b) =>
-      compareDesc(parseISO(a.updatedAt), parseISO(b.updatedAt))
-    );
+    const sortedArrayByDate = sortNoteByDateDesc(data);
     setNotes(sortedArrayByDate);
-
     setIsPlaceholderActive(false);
   };
 
@@ -106,7 +126,10 @@ const Dashboard = () => {
 
         {/* User HomePage */}
         <Col className="px-0">
-          <UserNavBar />
+          <UserNavBar
+            handleOnSearchTextChange={handleOnSearchTextChange}
+            searchData={searchedString}
+          />
           {/* Heading Stack */}
           <Stack
             direction="horizontal"
@@ -134,11 +157,16 @@ const Dashboard = () => {
           </Stack>
 
           {/* Empty list message */}
-          {!notes.length && !isPlaceholderActive && (
+          {!notes.length && !isPlaceholderActive && !searchedString && (
             <p className="p-5">Add some quick notes to get started. . .</p>
           )}
 
-          {/* Display list of notes */}
+          {/* Search result empty message */}
+          {!searchResult.length && searchedString && (
+            <p className="p-5">Nothing found here. Add more quick notes. . .</p>
+          )}
+
+          {/* Display list of notes*/}
           {notes && (
             <Stack
               gap={4}
@@ -147,7 +175,7 @@ const Dashboard = () => {
               className="d-flex flex-wrap p-4 ms-2 overflow-scroll"
             >
               {isPlaceholderActive && <SingleNoteCardPlaceholder />}
-              {notes.map((note) => (
+              {(searchedString ? searchResult : notes).map((note) => (
                 <motion.div
                   key={note._id}
                   layout

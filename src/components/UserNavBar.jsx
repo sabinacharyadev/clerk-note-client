@@ -1,8 +1,9 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
 import { Container, Form, Navbar } from "react-bootstrap";
 
-const UserNavBar = () => {
+const UserNavBar = ({ handleOnSearchTextChange, searchedString }) => {
   const { user } = useUser();
+
   return (
     <Navbar className="bg-body-tertiary ">
       <Container>
@@ -13,6 +14,9 @@ const UserNavBar = () => {
             type="text"
             placeholder="Search your notes"
             className="me-3"
+            name="query"
+            value={searchedString}
+            onChange={handleOnSearchTextChange}
           />
 
           <Navbar.Text className="d-flex justify-content-center align-items-center">

@@ -77,7 +77,6 @@ const SingleNoteCard = ({
                 (e.target.style.boxShadow =
                   generateTextAreaFocusColor(backgroundColor))
               }
-              autoFocus
             />
           </Form.Group>
         </Card.Body>
