@@ -80,6 +80,7 @@ const Dashboard = () => {
         style={{
           fontFamily: "Comfortaa",
           height: "100dvh",
+          width: "100dvw",
         }}
       >
         {/* Side Panel */}
