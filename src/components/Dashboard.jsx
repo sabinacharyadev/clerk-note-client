@@ -66,7 +66,9 @@ const Dashboard = () => {
   const populateSearchResults = (query) => {
     // fetch data from existing note
     if (query) {
-      const queriedData = notes.filter((item) => item.note.includes(query));
+      const queriedData = notes.filter((item) =>
+        item.note.toLowerCase().includes(query.toLowerCase())
+      );
       const sortedArrayByDate = sortNoteByDateDesc(queriedData);
       setSearchResult(sortedArrayByDate);
       return;
